@@ -1,6 +1,6 @@
 <?php
 
-namespace App\User\Domain;
+namespace ScooterVolt\UserService\User\Domain;
 
 use Adrigar94\ValueObjectCraft\Domain\Uuid\UuidValueObject;
 

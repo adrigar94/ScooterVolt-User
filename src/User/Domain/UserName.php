@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\User\Domain;
+namespace ScooterVolt\UserService\User\Domain;
 
 use Adrigar94\ValueObjectCraft\Primitive\String\StringValueObject;
 

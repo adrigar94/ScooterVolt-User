@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "ScooterVolt\\UserService\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "ScooterVolt\\UserService\\Tests\\": "tests/"
         }
     },
     "replace": {
