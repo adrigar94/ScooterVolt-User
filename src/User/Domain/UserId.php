@@ -2,8 +2,8 @@
 
 namespace App\User\Domain;
 
-use App\Shared\Domain\ValueObject\Uuid;
+use Adrigar94\ValueObjectCraft\Domain\Uuid\UuidValueObject;
 
-class UserId extends Uuid
+class UserId extends UuidValueObject
 {
 }
