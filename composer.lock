@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50bedf3b8d5b1f9a50fb7147c0877ba2",
+    "content-hash": "68568c9882076208bec5e9d876775d26",
     "packages": [
         {
             "name": "adrigar94/value-object-craft",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adrigar94/Value-Object-Craft.git",
-                "reference": "9243b0c2b848fda82267d3d6fa7dde4fe8ff0a2b"
+                "reference": "6d33a290e83df9b008897c6f9b533c71c12ecf6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/9243b0c2b848fda82267d3d6fa7dde4fe8ff0a2b",
-                "reference": "9243b0c2b848fda82267d3d6fa7dde4fe8ff0a2b",
+                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/6d33a290e83df9b008897c6f9b533c71c12ecf6a",
+                "reference": "6d33a290e83df9b008897c6f9b533c71c12ecf6a",
                 "shasum": ""
             },
             "require": {
@@ -46,9 +46,9 @@
             "description": "ValueObjectCraft is a PHP library that provides a set of versatile and robust value objects for data handling in applications. It is designed to simplify and standardize the usage of value objects in PHP, offering a reliable and efficient solution for representing and manipulating immutable data.",
             "support": {
                 "issues": "https://github.com/adrigar94/Value-Object-Craft/issues",
-                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.1.1"
+                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.2.0"
             },
-            "time": "2023-05-25T16:13:43+00:00"
+            "time": "2023-05-25T17:22:06+00:00"
         },
         {
             "name": "brick/math",
