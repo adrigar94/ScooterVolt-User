@@ -6,9 +6,12 @@ namespace ScooterVolt\UserService\User\Domain;
 
 use DateTime;
 
+/***
+ * TODO: $password use a VO for password
+ */
 class User
 {
-    public function __construct(private UserId $id, private UserName $name, private UserEmail $email, private UserPassword $password, private DateTime $created_at, private DateTime $updated_at)
+    public function __construct(private UserId $id, private UserName $name, private UserEmail $email, private string $password, private DateTime $created_at, private DateTime $updated_at)
     {
     }
 
@@ -37,7 +40,7 @@ class User
     {
         $this->email = $email;
     }
-    public function getPassword(): UserPassword
+    public function getPassword(): string
     {
         return $this->password;
     }
