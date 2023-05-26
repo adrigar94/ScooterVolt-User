@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adrigar94/value-object-craft",
-            "version": "v0.2.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adrigar94/Value-Object-Craft.git",
-                "reference": "6d33a290e83df9b008897c6f9b533c71c12ecf6a"
+                "reference": "60dd79357750d91168a2171d73b3b2c00be8ee22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/6d33a290e83df9b008897c6f9b533c71c12ecf6a",
-                "reference": "6d33a290e83df9b008897c6f9b533c71c12ecf6a",
+                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/60dd79357750d91168a2171d73b3b2c00be8ee22",
+                "reference": "60dd79357750d91168a2171d73b3b2c00be8ee22",
                 "shasum": ""
             },
             "require": {
@@ -46,9 +46,9 @@
             "description": "ValueObjectCraft is a PHP library that provides a set of versatile and robust value objects for data handling in applications. It is designed to simplify and standardize the usage of value objects in PHP, offering a reliable and efficient solution for representing and manipulating immutable data.",
             "support": {
                 "issues": "https://github.com/adrigar94/Value-Object-Craft/issues",
-                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.2.0"
+                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.3.1"
             },
-            "time": "2023-05-25T17:22:06+00:00"
+            "time": "2023-05-26T13:30:42+00:00"
         },
         {
             "name": "brick/math",
