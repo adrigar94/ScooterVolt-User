@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adrigar94/value-object-craft",
-            "version": "v0.3.1",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adrigar94/Value-Object-Craft.git",
-                "reference": "60dd79357750d91168a2171d73b3b2c00be8ee22"
+                "reference": "6b3a907478c565ca170d86883393fa567c4d61ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/60dd79357750d91168a2171d73b3b2c00be8ee22",
-                "reference": "60dd79357750d91168a2171d73b3b2c00be8ee22",
+                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/6b3a907478c565ca170d86883393fa567c4d61ee",
+                "reference": "6b3a907478c565ca170d86883393fa567c4d61ee",
                 "shasum": ""
             },
             "require": {
@@ -39,16 +39,17 @@
             ],
             "authors": [
                 {
-                    "name": "adrigar94",
-                    "email": "112860345+adrigar94@users.noreply.github.com"
+                    "name": "Adrián García Sabaté",
+                    "email": "112860345+adrigar94@users.noreply.github.com",
+                    "homepage": "https://github.com/adrigar94/"
                 }
             ],
             "description": "ValueObjectCraft is a PHP library that provides a set of versatile and robust value objects for data handling in applications. It is designed to simplify and standardize the usage of value objects in PHP, offering a reliable and efficient solution for representing and manipulating immutable data.",
             "support": {
                 "issues": "https://github.com/adrigar94/Value-Object-Craft/issues",
-                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.3.1"
+                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.3.2"
             },
-            "time": "2023-05-26T13:30:42+00:00"
+            "time": "2023-05-26T14:36:43+00:00"
         },
         {
             "name": "brick/math",
