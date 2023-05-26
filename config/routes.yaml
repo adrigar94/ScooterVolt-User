@@ -1,5 +1,5 @@
-controllers:
+api:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Api/
+        namespace: ScooterVolt\UserService\Api
     type: attribute
