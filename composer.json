@@ -1,4 +1,6 @@
 {
+    "name": "scooter-volt/user",
+    "description": "User microservice for the ScooterVolt platform",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

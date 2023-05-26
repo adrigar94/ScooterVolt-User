@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52246108f6202e93fed94409c0d2efe6",
+    "content-hash": "e8f16618d07b6e11dc1641649629901d",
     "packages": [
         {
             "name": "adrigar94/value-object-craft",
