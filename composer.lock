@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adrigar94/value-object-craft",
-            "version": "v0.3.3",
+            "version": "v0.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adrigar94/Value-Object-Craft.git",
-                "reference": "9c043f7deea02f407f12133eef9551324f853728"
+                "reference": "6dd5c0985ab6ad5ada1f454e1c687c250de06f42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/9c043f7deea02f407f12133eef9551324f853728",
-                "reference": "9c043f7deea02f407f12133eef9551324f853728",
+                "url": "https://api.github.com/repos/adrigar94/Value-Object-Craft/zipball/6dd5c0985ab6ad5ada1f454e1c687c250de06f42",
+                "reference": "6dd5c0985ab6ad5ada1f454e1c687c250de06f42",
                 "shasum": ""
             },
             "require": {
@@ -47,9 +47,9 @@
             "description": "ValueObjectCraft is a PHP library that provides a set of versatile and robust value objects for data handling in applications. It is designed to simplify and standardize the usage of value objects in PHP, offering a reliable and efficient solution for representing and manipulating immutable data.",
             "support": {
                 "issues": "https://github.com/adrigar94/Value-Object-Craft/issues",
-                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.3.3"
+                "source": "https://github.com/adrigar94/Value-Object-Craft/tree/v0.3.4"
             },
-            "time": "2023-05-27T08:54:10+00:00"
+            "time": "2023-05-29T12:58:15+00:00"
         },
         {
             "name": "brick/math",
@@ -1773,16 +1773,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.21.0",
+            "version": "1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "6df62b08faef4f899772bc7c3bbabb93d2b7a21c"
+                "reference": "e560a3eb5e76b35d6d92377e5abb6887c1c13c95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/6df62b08faef4f899772bc7c3bbabb93d2b7a21c",
-                "reference": "6df62b08faef4f899772bc7c3bbabb93d2b7a21c",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/e560a3eb5e76b35d6d92377e5abb6887c1c13c95",
+                "reference": "e560a3eb5e76b35d6d92377e5abb6887c1c13c95",
                 "shasum": ""
             },
             "require": {
@@ -1813,9 +1813,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.21.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.21.1"
             },
-            "time": "2023-05-17T13:13:44+00:00"
+            "time": "2023-05-29T11:55:57+00:00"
         },
         {
             "name": "psr/cache",
