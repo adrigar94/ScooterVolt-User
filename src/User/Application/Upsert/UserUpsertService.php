@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ScooterVolt\UserService\User\Application\Upsert;
 
+use Psr\Log\LoggerInterface;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -13,13 +14,18 @@ use ScooterVolt\UserService\User\Domain\UserRepository;
 
 class UserUpsertService
 {
-    public function __construct(private UserRepository $repository)
+    public function __construct(private UserRepository $repository, private LoggerInterface $logger)
     {
     }
 
     public function __invoke(UserId $userId, UserFullname $fullname, UserEmail $email, UserPassword $password): User
     {
+        $this->logger->error("UserUpsertService@__invoke");
+
         $user = $this->repository->findById($userId);
+
+        $this->logger->info($fullname->toNative());
+        $this->logger->info($user?$user->getId():"user dont exists");
 
         if($user){
             $user->setFullName($fullname);

@@ -14,7 +14,7 @@ class UserTest extends KernelTestCase
 {
     public function testCreateUserInstance()
     {
-        self::bootKernel();
+        //self::bootKernel();
 
         $userId = UserId::random();
         $userName = new NameValueObject('John');
@@ -32,7 +32,7 @@ class UserTest extends KernelTestCase
 
     public function testVerifyUserPassword()
     {
-        self::bootKernel();
+        //self::bootKernel();
 
         $passwordString = 'Password123!';
 
