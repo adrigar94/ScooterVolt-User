@@ -19,6 +19,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Shared/Infrastructure/Persistence/Doctrine/Migrations'
         
     ScooterVolt\UserService\Api\:
         resource: '../src/Api'
@@ -26,3 +27,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ScooterVolt\UserService\Shared\Domain\Event\KernelException:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
