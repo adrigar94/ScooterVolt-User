@@ -64,7 +64,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+        "console": "php bin/console",
+        "server": "symfony server:start"
     },
     "conflict": {
         "symfony/symfony": "*"
