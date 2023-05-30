@@ -90,7 +90,6 @@ final class DoctrineUserRepository implements UserRepository
             }
         } catch (UniqueConstraintViolationException $e) {
             if (strpos($e->getMessage(), 'users_email_key') !== false) {
-                //TODO return expection in JSON
                 throw new Exception('Error: The e-mail address is already registered.', 409);
             }
             throw $e;
