@@ -82,9 +82,9 @@ class User
         //TODO Is it necessary to check all fields? or is id, name and email enough?
         return $this->getId() == $toCompare->getId()
             and $this->getFullname() == $toCompare->getFullname()
-            and $this->getEmail() == $toCompare->getEmail()
-            and $this->password == $toCompare->password
-            and $this->getCreatedAt() == $toCompare->getCreatedAt()
-            and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
+            and $this->getEmail() == $toCompare->getEmail();
+            #and $this->password == $toCompare->password;
+            #and $this->getCreatedAt() == $toCompare->getCreatedAt()
+            #and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
     }
 }
