@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ScooterVolt\UserService\Tests\Api\User;
 
-use Adrigar94\ValueObjectCraft\Domain\Name\NameValueObject;
 use PHPUnit\Framework\MockObject\MockObject;
 use ScooterVolt\UserService\Api\User\UserUpsertController;
 use ScooterVolt\UserService\User\Application\Upsert\UserUpsertService;
