@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ScooterVolt\UserService\Tests\User\Domain;
 
 use Adrigar94\ValueObjectCraft\Domain\Name\NameValueObject;
