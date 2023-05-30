@@ -2,7 +2,8 @@ name: Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "*" ]
+    tags: ["*"]
   pull_request:
     branches: [ "main" ]
 
@@ -34,9 +35,7 @@ jobs:
           ${{ runner.os }}-php-
     - name: Install Dependencies
       run: composer install --prefer-dist --no-progress
-    - name: Set up Docker Compose
-      run: docker-compose up -d
+    - name: Docker Compose Action
+      uses: isbang/compose-action@v1.4.1
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
-    - name: Tear down Docker Compose
-      run: docker-compose down
