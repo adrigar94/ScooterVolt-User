@@ -35,7 +35,9 @@ class UserFindByIdControllerTest extends KernelTestCase
     public function testInvoke(): void
     {
         $userId = UserId::random();
-        $user = new User($userId, UserFullname::create('John', 'Doe'), new UserEmail('john@example.com'), new UserPassword('!P@55word'), new \DateTime(), new \DateTime());
+        $fullname = UserFullname::create('John', 'Doe');
+        $email = new UserEmail('john@example.com');
+        $user = new User($userId, $fullname, $email, new UserPassword('!P@55word'), new \DateTime(), new \DateTime());
 
         $this->findService->expects($this->once())
             ->method('__invoke')
@@ -52,9 +54,8 @@ class UserFindByIdControllerTest extends KernelTestCase
         $responseData = json_decode($response->getContent(), true);
 
         $this->assertSame($userId->toNative(), $responseData['id']);
-        $this->assertSame('John', $responseData['fullname']['name']);
-        $this->assertSame('Doe', $responseData['fullname']['surname']);
-        $this->assertSame('john@example.com', $responseData['email']);
+        $this->assertSame(json_decode($fullname->toNative(),true), $responseData['fullname']);
+        $this->assertSame($email->toNative(), $responseData['email']);
         $this->assertArrayHasKey('created_at', $responseData);
         $this->assertArrayHasKey('updated_at', $responseData);
     }
