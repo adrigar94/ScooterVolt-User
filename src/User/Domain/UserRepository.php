@@ -6,11 +6,16 @@ namespace ScooterVolt\UserService\User\Domain;
 
 interface UserRepository
 {
-    public function save(User $user): void;
+    /**
+     * @return User[]
+     */
+    public function findAll(): array;
 
     public function findById(UserID $id): ?User;
 
     public function findByEmail(UserEmail $email): ?User;
+
+    public function save(User $user): void;
 
     public function delete(UserId $id): void;
 }

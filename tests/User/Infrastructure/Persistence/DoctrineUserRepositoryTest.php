@@ -34,12 +34,21 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->repository = new DoctrineUserRepository($this->connection);
     }
 
+    public function testFindAll(): void
+    {
+        $foundUsers = $this->repository->findAll();
+
+        $this->assertIsArray($foundUsers);
+        $this->assertInstanceOf(User::class, $foundUsers[0]);
+    }
 
     public function testFindById(): void
     {
         $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
 
         $foundUser = $this->repository->findById($userId);
+
+        $this->assertInstanceOf(User::class, $foundUser);
         $this->assertEquals($userId, $foundUser->getId());
     }
 
@@ -49,6 +58,8 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $userEmail = new UserEmail('john.doe@example.com');
 
         $foundUser = $this->repository->findByEmail($userEmail);
+        
+        $this->assertInstanceOf(User::class, $foundUser);
         $this->assertEquals($userEmail, $foundUser->getEmail());
     }
 
@@ -64,6 +75,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 
         $foundUser = $this->repository->findById($userId);
 
+        $this->assertInstanceOf(User::class, $foundUser);
         $this->assertTrue($user->equals($foundUser));
     }
 

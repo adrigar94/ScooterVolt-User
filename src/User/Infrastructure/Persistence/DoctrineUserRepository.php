@@ -23,6 +23,24 @@ final class DoctrineUserRepository implements UserRepository
     {
     }
 
+    public function findAll(): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+
+        $queryBuilder
+            ->select('*')
+            ->from(self::TABLE_NAME);
+
+        $rows = $queryBuilder->executeQuery()->fetchAllAssociative();
+
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = $this->mapRowToUser($row);
+        }
+
+        return $users;
+    }
+
     public function findById(UserId $id): ?User
     {
         $queryBuilder = $this->connection->createQueryBuilder();
