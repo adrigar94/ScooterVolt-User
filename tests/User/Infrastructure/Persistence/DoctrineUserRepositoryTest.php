@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ScooterVolt\UserService\Tests\User\Infrastructure\Persistence;
 
 use Doctrine\DBAL\Connection;
+use ScooterVolt\UserService\User\Domain\UniqueEmailViolationException;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class DoctrineUserRepositoryTest extends KernelTestCase
 {
@@ -27,6 +29,77 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 
         $this->connection = static::getContainer()->get(Connection::class);
 
+        $this->setUpDatabase($kernel);
+
+        $this->repository = new DoctrineUserRepository($this->connection);
+    }
+
+
+    public function testFindById(): void
+    {
+        $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
+
+        $foundUser = $this->repository->findById($userId);
+        $this->assertEquals($userId, $foundUser->getId());
+    }
+
+
+    public function testFindByEmail(): void
+    {
+        $userEmail = new UserEmail('john.doe@example.com');
+
+        $foundUser = $this->repository->findByEmail($userEmail);
+        $this->assertEquals($userEmail, $foundUser->getEmail());
+    }
+
+    public function testSave(): void
+    {
+        $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
+        $fullname = UserFullname::create('John', 'Doe');
+        $email = new UserEmail('john.doe@example.com');
+        $password = new UserPassword('!Password123');
+        $user = new User($userId, $fullname, $email, $password, new \DateTime(), new \DateTime());
+
+        $this->repository->save($user);
+
+        $foundUser = $this->repository->findById($userId);
+
+        $this->assertTrue($user->equals($foundUser));
+    }
+
+    public function testSaveWithDuplicateEmail(): void
+    {
+        $userId1 = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
+        $userId2 = new UserId('51210494-e320-45da-894f-1a9587a23a2f');
+        $fullname = UserFullname::create('Isaac', 'Newton');
+        $email = new UserEmail('issac.newton@royalsociety.org');
+        $password = new UserPassword('!Password123');
+        $user1 = new User($userId1, $fullname, $email, $password, new \DateTime(), new \DateTime());
+        $user2 = new User($userId2, $fullname, $email, $password, new \DateTime(), new \DateTime());
+
+        $this->repository->save($user1);
+
+        $this->expectException(UniqueEmailViolationException::class);
+
+        $this->repository->save($user2);
+    }
+
+
+    public function testDelete(): void
+    {
+        $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
+
+        $foundUser = $this->repository->findById($userId);
+        $this->assertEquals($userId, $foundUser->getId());
+
+        $this->repository->delete($userId);
+
+        $foundUser = $this->repository->findById($userId);
+        $this->assertNull($foundUser);
+    }
+
+    private function setUpDatabase(KernelInterface $kernel)
+    {
         $application = new Application($kernel);
 
         $application->setAutoExit(false);
@@ -57,21 +130,5 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 
         $sql = file_get_contents('tests/User/Infrastructure/Persistence/testdata.sql');
         $this->connection->executeStatement($sql);
-
-        $this->repository = new DoctrineUserRepository($this->connection);
-    }
-
-    public function testFindById(): void
-    {
-        $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
-        $fullname = UserFullname::create('John', 'Doe');
-        $email = new UserEmail('john.doe@example.com');
-        $password = new UserPassword('!Password123');
-        $user = new User($userId, $fullname, $email, $password, new \DateTime(), new \DateTime());
-        $this->repository->save($user);
-
-        $foundUser = $this->repository->findById($userId);
-
-        $this->assertTrue($user->equals($foundUser));
     }
 }
