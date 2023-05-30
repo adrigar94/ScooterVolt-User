@@ -34,8 +34,7 @@ use Symfony\Component\HttpFoundation\Response;
         type: "object",
         properties: [
             new OA\Property(property: "id", type: "string", example: "062714f2-3916-4924-81fc-5ef985d19f5d"),
-            new OA\Property(property: "name", type: "string", example: "John"),
-            new OA\Property(property: "surname", type: "string", example: "Doe"),
+            new OA\Property(property: "fullname", type: "json", example: "{\"name\":\"John\",\"surname\":\"Doe\"}"),
             new OA\Property(property: "email", type: "string", example: "john@email.com"),
             new OA\Property(property: "created_at", type: "string", format: "date-time"),
             new OA\Property(property: "updated_at", type: "string", format: "date-time"),
@@ -61,7 +60,7 @@ class UserUpsertController
 
         return new JsonResponse([
             'id'         => $user->getId(),
-            'fullname'       => $user->getFullName(),
+            'fullname'   => $user->getFullname(),
             'email'      => $user->getEmail(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
