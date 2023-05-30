@@ -7,6 +7,7 @@ namespace ScooterVolt\UserService\User\Infrastructure\Persistence;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
+use ScooterVolt\UserService\User\Domain\UniqueEmailViolationException;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -90,13 +91,13 @@ final class DoctrineUserRepository implements UserRepository
             }
         } catch (UniqueConstraintViolationException $e) {
             if (strpos($e->getMessage(), 'users_email_key') !== false) {
-                throw new Exception('Error: The e-mail address is already registered.', 409);
+                throw new UniqueEmailViolationException($user->getEmail()->toNative());
             }
             throw $e;
         }
     }
 
-    public function deleteUser(UserId $id): void
+    public function delete(UserId $id): void
     {
         $this->connection->delete(self::TABLE_NAME, ['id' => $id->toNative()]);
     }
