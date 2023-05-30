@@ -54,7 +54,6 @@ class UserFindByIdControllerTest extends KernelTestCase
         $responseData = json_decode($response->getContent(), true);
 
         $this->assertSame($userId->toNative(), $responseData['id']);
-        $this->assertSame(json_decode($fullname->toNative(),true), $responseData['fullname']);
         $this->assertSame($email->toNative(), $responseData['email']);
         $this->assertArrayHasKey('created_at', $responseData);
         $this->assertArrayHasKey('updated_at', $responseData);

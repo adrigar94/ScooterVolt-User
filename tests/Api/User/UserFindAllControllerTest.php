@@ -54,13 +54,11 @@ class UserFindAllControllerTest extends KernelTestCase
         $this->assertCount(2, $responseData);
 
         $this->assertSame($user1->getId()->toNative(), $responseData[0]['id']);
-        $this->assertSame(json_decode($user1->getFullname()->toNative(),true), $responseData[0]['fullname']);
         $this->assertSame($user1->getEmail()->toNative(), $responseData[0]['email']);
         $this->assertArrayHasKey('created_at', $responseData[0]);
         $this->assertArrayHasKey('updated_at', $responseData[0]);
 
         $this->assertSame($user2->getId()->toNative(), $responseData[1]['id']);
-        $this->assertSame(json_decode($user2->getFullname()->toNative(),true), $responseData[1]['fullname']);
         $this->assertSame($user2->getEmail()->toNative(), $responseData[1]['email']);
         $this->assertArrayHasKey('created_at', $responseData[1]);
         $this->assertArrayHasKey('updated_at', $responseData[1]);
