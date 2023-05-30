@@ -6,12 +6,9 @@ namespace ScooterVolt\UserService\User\Domain;
 
 use DateTime;
 
-/***
- * TODO: $password use a VO for password
- */
 class User
 {
-    public function __construct(private UserId $id, private UserName $name, private UserEmail $email, private UserPassword $password, private DateTime $created_at, private DateTime $updated_at)
+    public function __construct(private UserId $id, private UserFullname $fullName, private UserEmail $email, private UserPassword $password, private DateTime $created_at, private DateTime $updated_at)
     {
     }
 
@@ -25,14 +22,14 @@ class User
         $this->id = $id;
     }
 
-    public function getName(): UserName
+    public function getFullname(): UserFullname
     {
-        return $this->name;
+        return $this->fullName;
     }
 
-    public function setName(UserName $name): void
+    public function setFullName(UserFullname $fullName): void
     {
-        $this->name = $name;
+        $this->fullName = $fullName;
     }
 
     public function getEmail(): UserEmail
@@ -48,6 +45,11 @@ class User
     public function validatePassword(string $password): bool
     {
         return $this->password->verify($password);
+    }
+
+    public function getPassword(): UserPassword
+    {
+        return $this->password;
     }
 
     public function setPassword(UserPassword $password): void
@@ -79,10 +81,10 @@ class User
     {
         //TODO Is it necessary to check all fields? or is id, name and email enough?
         return $this->getId() == $toCompare->getId()
-            and $this->getName() == $toCompare->getName()
-            and $this->getEmail() == $toCompare->getEmail()
-            and $this->password == $toCompare->password
-            and $this->getCreatedAt() == $toCompare->getCreatedAt()
-            and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
+            and $this->getFullname() == $toCompare->getFullname()
+            and $this->getEmail() == $toCompare->getEmail();
+            #and $this->password == $toCompare->password;
+            #and $this->getCreatedAt() == $toCompare->getCreatedAt()
+            #and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
     }
 }
