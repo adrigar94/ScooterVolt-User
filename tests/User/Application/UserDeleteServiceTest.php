@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace tests\User\Application;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Log\LoggerInterface;
 use ScooterVolt\UserService\User\Application\Delete\UserDeleteService;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserRepository;
