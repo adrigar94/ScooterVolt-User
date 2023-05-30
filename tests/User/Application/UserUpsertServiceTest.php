@@ -32,18 +32,13 @@ class UserUpsertServiceTest extends KernelTestCase
 
     public function testInvoke(): void
     {
-        // Mock dependencies
-
-        // Create test data
         $userId = UserId::random();
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john.doe@example.com');
         $password = new UserPassword('P@55word');
 
-        // Create expected user
         $expectedUser = new User($userId, $fullname, $email, $password, new \DateTime(), new \DateTime());
 
-        // Configure mock repository
         $this->repository->expects($this->once())
             ->method('findById')
             ->with($userId)
@@ -60,14 +55,10 @@ class UserUpsertServiceTest extends KernelTestCase
                 )
             );
 
-
-        // Create service instance
         $service = new UserUpsertService($this->repository, $this->logger);
 
-        // Invoke the service
         $result = $service->__invoke($userId, $fullname, $email, $password);
 
-        // Assertions
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals($expectedUser->getId(), $result->getId());
         $this->assertEquals($expectedUser->getFullname(), $result->getFullname());
