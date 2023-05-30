@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[Route('/api/user/{id}', name: 'user_find', methods: ['GET'])]
-#[OA\Tag("User")]
+#[Route('/api/users/{id}', name: 'user_find', methods: ['GET'])]
+#[OA\Tag("Users")]
 #[OA\Response(
     response: JsonResponse::HTTP_OK,
     description: "User Found",

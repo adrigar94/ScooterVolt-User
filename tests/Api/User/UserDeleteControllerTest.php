@@ -36,7 +36,7 @@ class UserDeleteControllerTest extends KernelTestCase
             ->method('__invoke')
             ->with($userId);
 
-        $request = Request::create("/api/user/$userId", 'DELETE');
+        $request = Request::create("/api/users/$userId", 'DELETE');
 
         $response = $this->controller->__invoke($request, $userId->toNative());
 

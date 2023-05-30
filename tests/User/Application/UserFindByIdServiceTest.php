@@ -14,9 +14,10 @@ use ScooterVolt\UserService\User\Domain\UserPassword;
 use ScooterVolt\UserService\User\Domain\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserFinByIdServiceTest extends KernelTestCase
+class UserFindByIdServiceTest extends KernelTestCase
 {
     private UserRepository|MockObject $repository;
+    private UserFindByIdService $service;
 
     protected function setUp(): void
     {
@@ -25,6 +26,7 @@ class UserFinByIdServiceTest extends KernelTestCase
         self::bootKernel();
 
         $this->repository = $this->createMock(UserRepository::class);
+        $this->service = new UserFindByIdService($this->repository);
     }
 
     public function testInvoke(): void
@@ -41,9 +43,7 @@ class UserFinByIdServiceTest extends KernelTestCase
             ->with($userId)
             ->willReturn($expectedUser);
 
-        $service = new UserFindByIdService($this->repository);
-
-        $result = $service->__invoke($userId);
+        $result = ($this->service)($userId);
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals($expectedUser->getId(), $result->getId());

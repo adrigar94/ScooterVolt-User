@@ -54,7 +54,7 @@ class UserUpsertControllerTest extends KernelTestCase
             ->method('__invoke')
             ->willReturn($user);
 
-        $request = Request::create("/api/user/$userId", 'PUT', [], [], [], [], json_encode([
+        $request = Request::create("/api/users/$userId", 'PUT', [], [], [], [], json_encode([
             'name' => $name,
             'surname' => $surname,
             'email' => $email,

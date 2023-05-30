@@ -16,8 +16,8 @@ use ScooterVolt\UserService\User\Application\Upsert\UserUpsertService;
 use ScooterVolt\UserService\User\Domain\UserId;
 use Symfony\Component\HttpFoundation\Response;
 
-#[Route('/api/user/{id}', name: 'user_create', methods: ['PUT'])]
-#[OA\Tag("User")]
+#[Route('/api/users/{id}', name: 'user_create', methods: ['PUT'])]
+#[OA\Tag("Users")]
 #[OA\RequestBody(content: new OA\JsonContent(
     type: "object",
     properties: [

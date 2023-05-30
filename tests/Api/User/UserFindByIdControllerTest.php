@@ -42,7 +42,7 @@ class UserFindByIdControllerTest extends KernelTestCase
             ->with($userId)
             ->willReturn($user);
 
-        $request = Request::create("/api/user/$userId", 'GET');
+        $request = Request::create("/api/users/$userId", 'GET');
 
         $response = $this->controller->__invoke($request, $userId->toNative());
 
@@ -68,7 +68,7 @@ class UserFindByIdControllerTest extends KernelTestCase
             ->with($userId)
             ->willReturn(null);
 
-        $request = Request::create("/api/user/$userId", 'GET');
+        $request = Request::create("/api/users/$userId", 'GET');
 
         $response = $this->controller->__invoke($request, $userId->toNative());
 

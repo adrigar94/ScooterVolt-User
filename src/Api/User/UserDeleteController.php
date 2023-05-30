@@ -11,8 +11,8 @@ use ScooterVolt\UserService\User\Application\Delete\UserDeleteService;
 use ScooterVolt\UserService\User\Domain\UserId;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/api/user/{id}', name: 'user_delete', methods: ['DELETE'])]
-#[OA\Tag("User")]
+#[Route('/api/users/{id}', name: 'user_delete', methods: ['DELETE'])]
+#[OA\Tag("Users")]
 #[OA\Response(
     response: Response::HTTP_NO_CONTENT,
     description: "User Deleted"
