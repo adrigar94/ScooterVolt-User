@@ -65,6 +65,8 @@
             "@auto-scripts"
         ],
         "test": "./vendor/bin/phpunit",
+        "test-unit": "./vendor/bin/phpunit --testsuite unit",
+        "test-integration": "./vendor/bin/phpunit --testsuite integration",
         "console": "php bin/console",
         "server": "symfony server:start"
     },
