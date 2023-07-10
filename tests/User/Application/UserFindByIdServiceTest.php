@@ -49,6 +49,6 @@ class UserFindByIdServiceTest extends KernelTestCase
         $this->assertEquals($expectedUser->getId(), $result->getId());
         $this->assertEquals($expectedUser->getFullname(), $result->getFullname());
         $this->assertEquals($expectedUser->getEmail(), $result->getEmail());
-        $this->assertEquals($expectedUser->getPassword(), $result->getPassword());
+        $this->assertEquals($expectedUser->getPasswordVO(), $result->getPasswordVO());
     }
 }
