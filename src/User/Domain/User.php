@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace ScooterVolt\UserService\User\Domain;
 
 use DateTime;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(private UserId $id, private UserFullname $fullName, private UserEmail $email, private UserPassword $password, private DateTime $created_at, private DateTime $updated_at)
     {
@@ -47,14 +49,34 @@ class User
         return $this->password->verify($password);
     }
 
-    public function getPassword(): UserPassword
+    public function getPasswordVO(): UserPassword
     {
         return $this->password;
+    }
+    public function getPassword(): String
+    {
+        return $this->password->value();
     }
 
     public function setPassword(UserPassword $password): void
     {
         $this->password = $password;
+    }
+
+    function getRoles(): array
+    {
+        $roles[] = 'ROLE_USER';
+        return $roles;
+    }
+
+    function eraseCredentials(): void
+    {
+        //TODO
+    }
+
+    function getUserIdentifier(): string
+    {
+        return $this->getEmail()->value();
     }
 
     public function getCreatedAt(): DateTime
@@ -87,4 +109,5 @@ class User
             #and $this->getCreatedAt() == $toCompare->getCreatedAt()
             #and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
     }
+    
 }

@@ -4,6 +4,51 @@ nelmio_api_doc:
             title: ScooterVolt User
             description: User microservice for the ScooterVolt platform
             version: 1.0.0
+        
+        components:
+            securitySchemes:
+                MySecurityScheme:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+        - MySecurityScheme: []
+
+        paths:
+            /api/auth/login:
+                post:
+                    tags: 
+                        - 'Auth'
+                    summary: 'Login'
+                    description: 'Endpoint to obtain JWT token'
+                    requestBody:
+                        required: true
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        username:
+                                            type: string
+                                        password:
+                                            type: string
+                    responses:
+                        '200':
+                            description: 'Returns a JWT token'
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                            expires_at:
+                                                type: string
+                                            refresh_token:
+                                                type: string
+                        '401':
+                            description: 'Invalid credentials'
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc(\.json)?$).* # Accepts routes under /api except /api/doc
+

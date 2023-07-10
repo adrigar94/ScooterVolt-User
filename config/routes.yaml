@@ -3,3 +3,6 @@ api:
         path: ../src/Api/
         namespace: ScooterVolt\UserService\Api
     type: attribute
+
+api_auth:
+    path: /api/auth/login
