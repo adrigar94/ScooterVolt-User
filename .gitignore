@@ -17,4 +17,5 @@
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
+/config/jwt/passphrase.txt
 ###< lexik/jwt-authentication-bundle ###

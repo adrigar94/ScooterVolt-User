@@ -20,4 +20,3 @@ To run integration tests:
 ## TODO
 - [ ] Create object mother for tests
 - [ ] Implement Domain Events
-- [ ] Remove JWT_PASSPHRASE from .env, move to file... and renew JWT_PASSPHRASE
