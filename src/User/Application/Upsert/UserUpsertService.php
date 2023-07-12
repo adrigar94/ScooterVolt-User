@@ -42,7 +42,7 @@ class UserUpsertService
 
         $this->repository->save($user);
 
-        //TODO events domain
+        //TODO domain event User created or edited
 
         return $user;
     }

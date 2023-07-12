@@ -25,7 +25,7 @@ class UserDeleteService
         }
         $this->repository->delete($userId);
         
-        //TODO events domain
+        //TODO domain event user deleted
     }
 
     private function hasPermission(string $email): void
