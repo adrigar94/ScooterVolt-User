@@ -13,6 +13,7 @@ use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
 use ScooterVolt\UserService\User\Domain\UserRepository;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserUpsertServiceTest extends KernelTestCase
@@ -36,8 +37,9 @@ class UserUpsertServiceTest extends KernelTestCase
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john.doe@example.com');
         $password = new UserPassword('P@55word');
+        $roles = UserRoles::fromNative(['ROLE_USER']);
 
-        $expectedUser = new User($userId, $fullname, $email, $password, new \DateTime(), new \DateTime());
+        $expectedUser = new User($userId, $fullname, $email, $password, $roles, new \DateTime(), new \DateTime());
 
         $this->repository->expects($this->once())
             ->method('findById')
@@ -57,7 +59,7 @@ class UserUpsertServiceTest extends KernelTestCase
 
         $service = new UserUpsertService($this->repository, $this->logger);
 
-        $result = $service->__invoke($userId, $fullname, $email, $password);
+        $result = $service->__invoke($userId, $fullname, $email, $password, $roles);
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals($expectedUser->getId(), $result->getId());

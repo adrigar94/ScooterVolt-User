@@ -15,6 +15,7 @@ use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
 use ScooterVolt\UserService\User\Domain\UserRepository;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -81,10 +82,11 @@ final class DoctrineUserRepository implements UserRepository
         $fullname = UserFullname::fromNative($row['fullname']);
         $email = UserEmail::fromNative($row['email']);
         $password = UserPassword::fromHashed($row['password']);
+        $roles = UserRoles::fromNative(json_decode($row['roles'], true));
         $createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $row['created_at']);
         $updatedAt = \DateTime::createFromFormat('Y-m-d H:i:s', $row['updated_at']);
 
-        return new User($id, $fullname, $email, $password, $createdAt, $updatedAt);
+        return new User($id, $fullname, $email, $password, $roles, $createdAt, $updatedAt);
     }
 
     public function save(User $user): void

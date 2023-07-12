@@ -11,6 +11,7 @@ use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use ScooterVolt\UserService\User\Infrastructure\Persistence\DoctrineUserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -69,7 +70,8 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john.doe@example.com');
         $password = new UserPassword('!Password123');
-        $user = new User($userId, $fullname, $email, $password, new \DateTime(), new \DateTime());
+        $roles = UserRoles::fromNative(['ROLE_USER']);
+        $user = new User($userId, $fullname, $email, $password, $roles, new \DateTime(), new \DateTime());
 
         $this->repository->save($user);
 
@@ -86,8 +88,9 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $fullname = UserFullname::create('Isaac', 'Newton');
         $email = new UserEmail('issac.newton@royalsociety.org');
         $password = new UserPassword('!Password123');
-        $user1 = new User($userId1, $fullname, $email, $password, new \DateTime(), new \DateTime());
-        $user2 = new User($userId2, $fullname, $email, $password, new \DateTime(), new \DateTime());
+        $roles = UserRoles::fromNative(['ROLE_USER']);
+        $user1 = new User($userId1, $fullname, $email, $password, $roles, new \DateTime(), new \DateTime());
+        $user2 = new User($userId2, $fullname, $email, $password, $roles, new \DateTime(), new \DateTime());
 
         $this->repository->save($user1);
 

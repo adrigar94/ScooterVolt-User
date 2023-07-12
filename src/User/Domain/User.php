@@ -10,8 +10,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    public function __construct(private UserId $id, private UserFullname $fullName, private UserEmail $email, private UserPassword $password, private DateTime $created_at, private DateTime $updated_at)
-    {
+    public function __construct(
+        private UserId $id,
+        private UserFullname $fullName,
+        private UserEmail $email,
+        private UserPassword $password,
+        private UserRoles $roles,
+        private DateTime $created_at,
+        private DateTime $updated_at
+    ) {
     }
 
     public function getId(): UserId
@@ -65,8 +72,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     function getRoles(): array
     {
-        $roles[] = 'ROLE_USER';
-        return $roles;
+        return $this->roles->toNative();
+    }
+
+    function getRolesVO(): UserRoles
+    {
+        return $this->roles;
+    }
+
+    function setRolesVO(UserRoles $roles): void
+    {
+        $this->roles = $roles;
     }
 
     function eraseCredentials(): void
@@ -105,9 +121,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getId() == $toCompare->getId()
             and $this->getFullname() == $toCompare->getFullname()
             and $this->getEmail() == $toCompare->getEmail();
-            #and $this->password == $toCompare->password;
-            #and $this->getCreatedAt() == $toCompare->getCreatedAt()
-            #and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
+        #and $this->password == $toCompare->password;
+        #and $this->getCreatedAt() == $toCompare->getCreatedAt()
+        #and $this->getUpdatedAt() == $toCompare->getUpdatedAt();
     }
-    
 }

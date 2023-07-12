@@ -12,6 +12,7 @@ use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class UserFindByIdControllerTest extends KernelTestCase
         $userId = UserId::random();
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john@example.com');
-        $user = new User($userId, $fullname, $email, new UserPassword('!P@55word'), new \DateTime(), new \DateTime());
+        $user = new User($userId, $fullname, $email, new UserPassword('!P@55word'), UserRoles::fromNative(['ROLE_USER']), new \DateTime(), new \DateTime());
 
         $this->findService->expects($this->once())
             ->method('__invoke')

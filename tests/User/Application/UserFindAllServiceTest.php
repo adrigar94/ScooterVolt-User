@@ -12,6 +12,7 @@ use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
 use ScooterVolt\UserService\User\Domain\UserRepository;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserFindAllServiceTest extends KernelTestCase
@@ -31,8 +32,8 @@ class UserFindAllServiceTest extends KernelTestCase
 
     public function testInvoke(): void
     {
-        $user1 = new User(UserId::random(), UserFullname::create('name1', 'surname2'), new UserEmail('name@users.com'), new UserPassword('P@55word'), new \DateTime(), new \DateTime());
-        $user2 = new User(UserId::random(), UserFullname::create('name1', 'surname2'), new UserEmail('name@users.com'), new UserPassword('P@55word'), new \DateTime(), new \DateTime());
+        $user1 = new User(UserId::random(), UserFullname::create('name1', 'surname2'), new UserEmail('name@users.com'), new UserPassword('P@55word'), UserRoles::fromNative(['ROLE_USER']), new \DateTime(), new \DateTime());
+        $user2 = new User(UserId::random(), UserFullname::create('name1', 'surname2'), new UserEmail('name@users.com'), new UserPassword('P@55word'), UserRoles::fromNative(['ROLE_USER']), new \DateTime(), new \DateTime());
 
         $expectedUsers = [$user1, $user2];
 

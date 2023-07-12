@@ -12,6 +12,7 @@ use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,8 +35,8 @@ class UserFindAllControllerTest extends KernelTestCase
 
     public function testInvoke(): void
     {
-        $user1 = new User(UserId::random(), UserFullname::create('John', 'Doe'), new UserEmail('john@example.com'), new UserPassword('!P@55word'), new \DateTime(), new \DateTime());
-        $user2 = new User(UserId::random(), UserFullname::create('Jane', 'Smith'), new UserEmail('jane@example.com'), new UserPassword('!P@55word'), new \DateTime(), new \DateTime());
+        $user1 = new User(UserId::random(), UserFullname::create('John', 'Doe'), new UserEmail('john@example.com'), new UserPassword('!P@55word'), UserRoles::fromNative(['ROLE_USER']), new \DateTime(), new \DateTime());
+        $user2 = new User(UserId::random(), UserFullname::create('Jane', 'Smith'), new UserEmail('jane@example.com'), new UserPassword('!P@55word'), UserRoles::fromNative(['ROLE_USER']), new \DateTime(), new \DateTime());
         $users = [$user1, $user2];
 
         $this->findService->expects($this->once())
