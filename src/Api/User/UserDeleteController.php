@@ -25,7 +25,6 @@ class UserDeleteController
 
     public function __invoke(Request $request, string $id): Response
     {
-        //TODO: permissions check. Own user or admin role
         $userId = new UserId($id);
 
         $this->deleteService->__invoke($userId);
