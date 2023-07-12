@@ -12,6 +12,7 @@ use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,12 +41,14 @@ class UserUpsertControllerTest extends KernelTestCase
         $surname = "Controller";
         $email = "test@controller.com";
         $passwd = "P@55word";
+        $roles = ['ROLE_USER'];
 
         $user = new User(
             $userId,
             UserFullname::create($name, $surname),
             new UserEmail($email),
             new UserPassword($passwd),
+            UserRoles::fromNative($roles),
             new \DateTime,
             new \DateTime
         );

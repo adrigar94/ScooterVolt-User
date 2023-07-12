@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Attributes as OA;
 use ScooterVolt\UserService\User\Application\Upsert\UserUpsertService;
 use ScooterVolt\UserService\User\Domain\UserId;
+use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Route('/api/users/{id}', name: 'user_create', methods: ['PUT'])]
@@ -55,8 +56,9 @@ class UserUpsertController
         $fullname = new UserFullname(new NameValueObject($data['name']), new NameValueObject($data['surname']));
         $email    = new UserEmail($data['email']);
         $password = new UserPassword($data['password']);
+        $roles = UserRoles::fromNative(['ROLE_USER']);
 
-        $user = $this->upsert->__invoke($userId, $fullname, $email, $password);
+        $user = $this->upsert->__invoke($userId, $fullname, $email, $password, $roles);
 
         return new JsonResponse([
             'id'         => $user->getId(),
