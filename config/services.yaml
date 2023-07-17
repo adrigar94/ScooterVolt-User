@@ -28,6 +28,14 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    ScooterVolt\UserService\Shared\Infrastructure\Bus\Event\RabbitMqEventBus:
+        arguments:
+            $host: '%env(RABBITMQ_HOST)%'
+            $port: 5672
+            $user: '%env(RABBITMQ_USERNAME)%'
+            $password: '%env(RABBITMQ_PASSWORD)%'
+            $exchange: '%env(RABBITMQ_EXCHANGE)%'
+
     ScooterVolt\UserService\Shared\Domain\Event\KernelException:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

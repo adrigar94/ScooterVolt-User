@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace ScooterVolt\UserService\User\Application\Upsert;
 
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
+use ScooterVolt\UserService\Shared\Domain\Bus\Event\DomainEvent;
+use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
+use ScooterVolt\UserService\User\Domain\Events\UserUpsertDomainEvent;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -19,7 +22,8 @@ class UserUpsertService
 {
     public function __construct(
         private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice
+        private AuthorizationUser $authorizationSerivice,
+        private EventBus $eventBus
     ) {
     }
 
@@ -42,16 +46,25 @@ class UserUpsertService
 
         $this->repository->save($user);
 
-        //TODO domain event User created or edited
+        $this->eventBus->publish(
+            new UserUpsertDomainEvent(
+                $userId->value(),
+                $fullname->name()->value(),
+                $fullname->surname()->value(),
+                $email->value(),
+                $roles->toNative()
+            )
+        );
 
         return $user;
     }
 
     private function hasPermission(string $email): void
     {
-        if(!$this->authorizationSerivice->loggedIs($email) and !$this->authorizationSerivice->isAdmin()
-        ){
-            throw new UnauthorizedHttpException('Bearer','You do not have permission to edit this user');
+        if (
+            !$this->authorizationSerivice->loggedIs($email) and !$this->authorizationSerivice->isAdmin()
+        ) {
+            throw new UnauthorizedHttpException('Bearer', 'You do not have permission to edit this user');
         }
     }
 }
