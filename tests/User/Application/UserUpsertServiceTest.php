@@ -7,6 +7,7 @@ namespace Tests\ScooterVolt\UserService\User\Application\Upsert;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
+use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
 use ScooterVolt\UserService\User\Application\Upsert\UserUpsertService;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
@@ -22,6 +23,7 @@ class UserUpsertServiceTest extends KernelTestCase
 {
     private UserRepository|MockObject $repository;
     private AuthorizationUser|MockObject $authorizationSerivice;
+    private EventBus|MockObject $eventBus;
 
     protected function setUp(): void
     {
@@ -31,6 +33,7 @@ class UserUpsertServiceTest extends KernelTestCase
 
         $this->repository = $this->createMock(UserRepository::class);
         $this->authorizationSerivice = $this->createMock(AuthorizationUser::class);
+        $this->eventBus = $this->createMock(EventBus::class);
     }
 
     public function testInvokeCreate(): void
@@ -48,19 +51,23 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with($userId)
             ->willReturn(null);
 
-            $this->repository->expects($this->once())
+        $this->repository->expects($this->once())
             ->method('save')
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(function (User $user) use ($expectedUser) {    
+                    $this->callback(function (User $user) use ($expectedUser) {
                         return $user->equals($expectedUser);
                     })
                 )
             );
-        
 
-        $service = new UserUpsertService($this->repository, $this->authorizationSerivice);
+
+        $this->eventBus->expects($this->once())
+            ->method('publish');
+
+
+        $service = new UserUpsertService($this->repository, $this->authorizationSerivice, $this->eventBus);
 
         $result = $service->__invoke($userId, $fullname, $email, $password, $roles);
 
@@ -92,7 +99,7 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(function (User $user) use ($expectedUser) {    
+                    $this->callback(function (User $user) use ($expectedUser) {
                         return $user->equals($expectedUser);
                     })
                 )
@@ -100,9 +107,13 @@ class UserUpsertServiceTest extends KernelTestCase
 
         $this->authorizationSerivice->expects($this->once())
             ->method('loggedIs')
-            ->willReturn(true);        
+            ->willReturn(true);
 
-        $service = new UserUpsertService($this->repository, $this->authorizationSerivice);
+
+        $this->eventBus->expects($this->once())
+            ->method('publish');
+
+        $service = new UserUpsertService($this->repository, $this->authorizationSerivice, $this->eventBus);
 
         $result = $service->__invoke($userId, $fullname, $email, $password, $roles);
 
@@ -131,13 +142,19 @@ class UserUpsertServiceTest extends KernelTestCase
 
         $this->authorizationSerivice->expects($this->once())
             ->method('loggedIs')
-            ->willReturn(false);      
+            ->willReturn(false);
 
         $this->authorizationSerivice->expects($this->once())
             ->method('isAdmin')
-            ->willReturn(false);        
+            ->willReturn(false);
 
-        $service = new UserUpsertService($this->repository, $this->authorizationSerivice);
+        $this->repository->expects($this->never())
+            ->method('save');
+
+        $this->eventBus->expects($this->never())
+            ->method('publish');
+
+        $service = new UserUpsertService($this->repository, $this->authorizationSerivice, $this->eventBus);
 
 
         $this->expectException(UnauthorizedHttpException::class);

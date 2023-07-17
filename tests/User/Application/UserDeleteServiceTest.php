@@ -6,7 +6,9 @@ namespace tests\User\Application;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
+use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
 use ScooterVolt\UserService\User\Application\Delete\UserDeleteService;
+use ScooterVolt\UserService\User\Domain\Events\UserDeletedDomainEvent;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -21,6 +23,7 @@ class UserDeleteServiceTest extends KernelTestCase
 {
     private UserRepository|MockObject $repository;
     private AuthorizationUser|MockObject $authorizationSerivice;
+    private EventBus|MockObject $eventBus;
 
     protected function setUp(): void
     {
@@ -30,6 +33,7 @@ class UserDeleteServiceTest extends KernelTestCase
 
         $this->repository = $this->createMock(UserRepository::class);
         $this->authorizationSerivice = $this->createMock(AuthorizationUser::class);
+        $this->eventBus = $this->createMock(EventBus::class);
     }
 
     public function testInvoke(): void
@@ -56,7 +60,10 @@ class UserDeleteServiceTest extends KernelTestCase
             ->method('loggedIs')
             ->willReturn(true);
 
-        $service = new UserDeleteService($this->repository, $this->authorizationSerivice);
+        $this->eventBus->expects($this->once())
+            ->method('publish');
+
+        $service = new UserDeleteService($this->repository, $this->authorizationSerivice, $this->eventBus);
 
         $service->__invoke($userId);
     }
@@ -80,8 +87,16 @@ class UserDeleteServiceTest extends KernelTestCase
             ->method('loggedIs')
             ->willReturn(false);
 
-        $service = new UserDeleteService($this->repository, $this->authorizationSerivice);
-        
+
+        $this->repository->expects($this->never())
+            ->method('delete');
+
+
+        $this->eventBus->expects($this->never())
+            ->method('publish');
+
+        $service = new UserDeleteService($this->repository, $this->authorizationSerivice, $this->eventBus);
+
         $this->expectException(UnauthorizedHttpException::class);
 
         $service->__invoke($userId);

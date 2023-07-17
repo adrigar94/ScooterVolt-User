@@ -20,7 +20,7 @@ services:
 
   
   rabbitmq:
-    image: rabbitmq:${RABBITMQ_VERSION:-3.12}-alpine
+    image: rabbitmq:${RABBITMQ_VERSION:-3.12}-management
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-guest}

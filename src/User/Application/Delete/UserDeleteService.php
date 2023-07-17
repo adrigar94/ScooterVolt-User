@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ScooterVolt\UserService\User\Application\Delete;
 
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
+use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
+use ScooterVolt\UserService\User\Domain\Events\UserDeletedDomainEvent;
 use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserRepository;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -13,19 +15,25 @@ class UserDeleteService
 {
     public function __construct(
         private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice)
-    {
+        private AuthorizationUser $authorizationSerivice,
+        private EventBus $eventBus
+    ) {
     }
 
     public function __invoke(UserId $userId): void
     {
         $user = $this->repository->findById($userId);
-        if($user){
+        if ($user) {
             $this->hasPermission($user->getEmail()->value());
         }
         $this->repository->delete($userId);
-        
-        //TODO domain event user deleted
+
+        $this->eventBus->publish(
+            new UserDeletedDomainEvent(
+                $userId->value(),
+                $user->getEmail()->value()
+            )
+        );
     }
 
     private function hasPermission(string $email): void
