@@ -19,4 +19,3 @@ To run integration tests:
 
 ## TODO
 - [ ] Create object mother for tests
-- [ ] Implement Domain Events
