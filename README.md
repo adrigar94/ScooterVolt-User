@@ -1,3 +1,5 @@
+[![Test](https://github.com/adrigar94/ScooterVolt-User/actions/workflows/test.yml/badge.svg)](https://github.com/adrigar94/ScooterVolt-User/actions/workflows/test.yml)
+
 # ScooterVolt-User
 The User service is a microservice in the ScooterVolt platform, responsible for user registration, authentication, and authorization. This service is built using Symfony.
 
