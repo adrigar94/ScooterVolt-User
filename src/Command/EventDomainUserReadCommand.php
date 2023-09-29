@@ -27,13 +27,13 @@ class EventDomainUserReadCommand extends Command
         $connection = new AMQPStreamConnection("127.0.0.1", 5672, 'guest', 'guest');
         $channel = $connection->channel();
 
-        $channel->exchange_declare('UserService', 'topic', false, false, false);
+        $channel->exchange_declare('UserService', 'topic', false, true, false);
 
         $channel->queue_declare('Users_ALL');
         $channel->queue_bind('Users_ALL', 'UserService', 'user.*');
 
         $channel->basic_consume('Users_ALL', '', false, true, false, false, function ($message) use ($io) {
-            $io->info([$message->delivery_info['routing_key'],$message->body]);
+            $io->info([$message->delivery_info['routing_key'], $message->body]);
         });
 
         $i = 0;
