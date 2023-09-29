@@ -29,17 +29,19 @@ class RabbitMqEventBus implements EventBus
     {
         $channel = $this->connection->channel();
 
-        $channel->exchange_declare($this->exchange, 'topic', false, false, false);
+        $channel->exchange_declare($this->exchange, 'topic', false, true, false);
 
         foreach ($events as $event) {
-            $message = new AMQPMessage(json_encode($event->toPrimitives()),
-            [
-                'message_id' => $event->eventId(),
-                'timestamp' => $event->occurredOn()->setTimezone(new \DateTimeZone("UTC"))->getTimestamp(),
-                'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
-                'content_type' => 'application/json',
-                'content_encoding' => 'utf-8',
-            ]);
+            $message = new AMQPMessage(
+                json_encode($event->toPrimitives()),
+                [
+                    'message_id' => $event->eventId(),
+                    'timestamp' => $event->occurredOn()->setTimezone(new \DateTimeZone("UTC"))->getTimestamp(),
+                    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+                    'content_type' => 'application/json',
+                    'content_encoding' => 'utf-8',
+                ]
+            );
 
             $channel->basic_publish($message, $this->exchange, $event->eventName());
         }

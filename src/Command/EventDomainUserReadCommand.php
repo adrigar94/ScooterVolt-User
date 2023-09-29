@@ -29,7 +29,7 @@ class EventDomainUserReadCommand extends Command
 
         $channel->exchange_declare('UserService', 'topic', false, true, false);
 
-        $channel->queue_declare('Users_ALL');
+        $channel->queue_declare('Users_ALL', false, true);
         $channel->queue_bind('Users_ALL', 'UserService', 'user.*');
 
         $channel->basic_consume('Users_ALL', '', false, true, false, false, function ($message) use ($io) {
