@@ -7,6 +7,10 @@ The User service is a microservice in the ScooterVolt platform, responsible for 
 
 Is avaible in ```https://localhost:8000/api/doc```
 
+## Requirements before running API
+- Have the database with the migrations executed
+- Having generated the key pair for JWT
+
 ## Testing
 
 To run all tests:
