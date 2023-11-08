@@ -21,3 +21,6 @@
 ###< lexik/jwt-authentication-bundle ###
 
 /config/secrets/
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
