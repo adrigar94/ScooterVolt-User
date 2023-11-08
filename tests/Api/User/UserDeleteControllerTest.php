@@ -36,11 +36,11 @@ class UserDeleteControllerTest extends KernelTestCase
             ->method('__invoke')
             ->with($userId);
 
-        $request = Request::create("/api/users/$userId", 'DELETE');
+        $request = Request::create("/api/users/$userId", \Symfony\Component\HttpFoundation\Request::METHOD_DELETE);
 
         $response = $this->controller->__invoke($request, $userId->toNative());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+        $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode(), $response->getContent());
     }
 }

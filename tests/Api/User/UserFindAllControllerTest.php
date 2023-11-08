@@ -43,12 +43,12 @@ class UserFindAllControllerTest extends KernelTestCase
             ->method('__invoke')
             ->willReturn($users);
 
-        $request = Request::create('/api/users', 'GET');
+        $request = Request::create('/api/users', \Symfony\Component\HttpFoundation\Request::METHOD_GET);
 
         $response = $this->controller->__invoke($request);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode(), $response->getContent());
 
         $responseData = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 

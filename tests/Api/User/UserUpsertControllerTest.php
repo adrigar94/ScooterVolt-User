@@ -57,7 +57,7 @@ class UserUpsertControllerTest extends KernelTestCase
             ->method('__invoke')
             ->willReturn($user);
 
-        $request = Request::create("/api/users/$userId", 'PUT', [], [], [], [], json_encode([
+        $request = Request::create("/api/users/$userId", \Symfony\Component\HttpFoundation\Request::METHOD_PUT, [], [], [], [], json_encode([
             'name' => $name,
             'surname' => $surname,
             'email' => $email,
@@ -67,7 +67,7 @@ class UserUpsertControllerTest extends KernelTestCase
         $response = $this->controller->__invoke($request, $userId->toNative());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
+        $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode(), $response->getContent());
 
         $responseData = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $this->assertArrayHasKey('id', $responseData);
