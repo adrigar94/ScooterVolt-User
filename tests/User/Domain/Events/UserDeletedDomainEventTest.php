@@ -30,10 +30,7 @@ class UserDeletedDomainEventTest extends TestCase
     public function testFromPrimitivesMethod(): void
     {
         $userId = '1234';
-        $name = 'John';
-        $surname = 'Doe';
         $email = 'john.doe@example.com';
-        $roles = ['ROLE_USER'];
         $eventId = '5678';
         $occurredOn = new DateTimeImmutable();
 

@@ -141,7 +141,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         ]);
         $output = new BufferedOutput();
         $application->run($input, $output);
-        $content = $output->fetch();
+        $output->fetch();
 
         $sql = file_get_contents('tests/User/Infrastructure/Persistence/testdata.sql');
         $this->connection->executeStatement($sql);

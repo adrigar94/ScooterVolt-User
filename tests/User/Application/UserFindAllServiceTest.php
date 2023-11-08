@@ -65,6 +65,6 @@ class UserFindAllServiceTest extends KernelTestCase
 
         $this->expectException(UnauthorizedHttpException::class);
 
-        $users = ($this->service)();
+        ($this->service)();
     }
 }

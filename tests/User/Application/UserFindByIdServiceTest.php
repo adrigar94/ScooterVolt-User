@@ -88,7 +88,7 @@ class UserFindByIdServiceTest extends KernelTestCase
 
         $this->expectException(UnauthorizedHttpException::class);
 
-        $result = ($this->service)($userId);
+        ($this->service)($userId);
     }
 
 }

@@ -155,6 +155,6 @@ class UserUpsertServiceTest extends KernelTestCase
 
         $this->expectException(UnauthorizedHttpException::class);
 
-        $result = $service->__invoke($userId, $fullname, $email, $password, $roles);
+        $service->__invoke($userId, $fullname, $email, $password, $roles);
     }
 }

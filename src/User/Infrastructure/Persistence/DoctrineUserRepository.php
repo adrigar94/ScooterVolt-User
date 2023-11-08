@@ -133,7 +133,6 @@ final class DoctrineUserRepository implements UserRepository
      * object can just be merged into some internal array of users / identity
      * map.
      *
-     * @return UserInterface
      *
      * @throws UnsupportedUserException if the user is not supported
      * @throws UserNotFoundException    if the user is not found
@@ -155,8 +154,6 @@ final class DoctrineUserRepository implements UserRepository
 
     /**
      * Whether this provider supports the given user class.
-     *
-     * @return bool
      */
     function supportsClass(string $class):bool
     {
