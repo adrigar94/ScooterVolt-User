@@ -21,9 +21,9 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserUpsertService
 {
     public function __construct(
-        private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice,
-        private EventBus $eventBus
+        private readonly UserRepository $repository,
+        private readonly AuthorizationUser $authorizationSerivice,
+        private readonly EventBus $eventBus
     ) {
     }
 
@@ -32,7 +32,7 @@ class UserUpsertService
 
         $user = $this->repository->findById($userId);
 
-        if ($user) {
+        if ($user instanceof \ScooterVolt\UserService\User\Domain\User) {
             $this->hasPermission($email->value());
 
             $user->setFullName($fullname);
@@ -62,7 +62,7 @@ class UserUpsertService
     private function hasPermission(string $email): void
     {
         if (
-            !$this->authorizationSerivice->loggedIs($email) and !$this->authorizationSerivice->isAdmin()
+            !$this->authorizationSerivice->loggedIs($email) && !$this->authorizationSerivice->isAdmin()
         ) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission to edit this user');
         }

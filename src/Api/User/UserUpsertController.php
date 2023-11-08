@@ -44,13 +44,13 @@ use Symfony\Component\HttpFoundation\Response;
 )]
 class UserUpsertController
 {
-    public function __construct(private UserUpsertService $upsert)
+    public function __construct(private readonly UserUpsertService $upsert)
     {
     }
 
     public function __invoke(Request $request, string $id): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $userId   = new UserId($id);
         $fullname = new UserFullname(new NameValueObject($data['name']), new NameValueObject($data['surname']));

@@ -56,9 +56,7 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(function (User $user) use ($expectedUser) {
-                        return $user->equals($expectedUser);
-                    })
+                    $this->callback(fn(User $user) => $user->equals($expectedUser))
                 )
             );
 
@@ -99,9 +97,7 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(function (User $user) use ($expectedUser) {
-                        return $user->equals($expectedUser);
-                    })
+                    $this->callback(fn(User $user) => $user->equals($expectedUser))
                 )
             );
 

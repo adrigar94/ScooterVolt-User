@@ -117,9 +117,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function equals(self $toCompare): bool
     {
-        return $this->getId() == $toCompare->getId()
-            and $this->getFullname() == $toCompare->getFullname()
-            and $this->getEmail() == $toCompare->getEmail()
-            and $this->getPassword() == $toCompare->getPassword();
+        return $this->getId() == $toCompare->getId() && $this->getFullname() == $toCompare->getFullname() && $this->getEmail() == $toCompare->getEmail() && $this->getPassword() === $toCompare->getPassword();
     }
 }

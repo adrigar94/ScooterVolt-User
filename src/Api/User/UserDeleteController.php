@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 )]
 class UserDeleteController
 {
-    public function __construct(private UserDeleteService $deleteService)
+    public function __construct(private readonly UserDeleteService $deleteService)
     {
     }
 

@@ -34,7 +34,7 @@ use Symfony\Component\HttpFoundation\Response;
 )]
 class UserFindByIdController
 {
-    public function __construct(private UserFindByIdService $finder)
+    public function __construct(private readonly UserFindByIdService $finder)
     {
     }
 
@@ -44,7 +44,7 @@ class UserFindByIdController
 
         $user = $this->finder->__invoke($userId);
 
-        if ($user === null) {
+        if (!$user instanceof \ScooterVolt\UserService\User\Domain\User) {
             return new JsonResponse([], JsonResponse::HTTP_NOT_FOUND);
         }
 

@@ -23,7 +23,7 @@ final class DoctrineUserRepository implements UserRepository
 {
     private const TABLE_NAME = 'users';
 
-    public function __construct(private Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
     }
 
@@ -82,7 +82,7 @@ final class DoctrineUserRepository implements UserRepository
         $fullname = UserFullname::fromNative($row['fullname']);
         $email = UserEmail::fromNative($row['email']);
         $password = UserPassword::fromHashed($row['password']);
-        $roles = UserRoles::fromNative(json_decode($row['roles'], true));
+        $roles = UserRoles::fromNative(json_decode((string) $row['roles'], true, 512, JSON_THROW_ON_ERROR));
         $createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $row['created_at']);
         $updatedAt = \DateTime::createFromFormat('Y-m-d H:i:s', $row['updated_at']);
 
@@ -103,7 +103,7 @@ final class DoctrineUserRepository implements UserRepository
         $existingUser = $this->findById($user->getId());
 
         try {
-            if ($existingUser) {
+            if ($existingUser instanceof \ScooterVolt\UserService\User\Domain\User) {
                 $this->connection->update(
                     self::TABLE_NAME,
                     $data,
@@ -113,7 +113,7 @@ final class DoctrineUserRepository implements UserRepository
                 $this->connection->insert(self::TABLE_NAME, $data);
             }
         } catch (UniqueConstraintViolationException $e) {
-            if (strpos($e->getMessage(), 'users_email_key') !== false) {
+            if (str_contains($e->getMessage(), 'users_email_key')) {
                 throw new UniqueEmailViolationException($user->getEmail()->toNative());
             }
             throw $e;
@@ -141,12 +141,12 @@ final class DoctrineUserRepository implements UserRepository
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
     
         $refreshedUser = $this->findById($user->getId());
     
-        if (null === $refreshedUser) {
+        if (!$refreshedUser instanceof \ScooterVolt\UserService\User\Domain\User) {
             throw new UserNotFoundException("id", $user->getId()->value());
         }
     
@@ -176,7 +176,7 @@ final class DoctrineUserRepository implements UserRepository
         $email = UserEmail::fromNative($identifier);
         $user = $this->findByEmail($email);
     
-        if (!$user) {
+        if (!$user instanceof \ScooterVolt\UserService\User\Domain\User) {
             throw new UserNotFoundException("email", $identifier);
         }
     

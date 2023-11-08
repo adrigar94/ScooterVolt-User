@@ -11,18 +11,16 @@ use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
 
 class RabbitMqEventBus implements EventBus
 {
-    private AMQPStreamConnection $connection;
-    private string $exchange;
+    private readonly AMQPStreamConnection $connection;
 
     public function __construct(
         string $host,
         int $port,
         string $user,
         string $password,
-        string $exchange
+        private readonly string $exchange
     ) {
         $this->connection = new AMQPStreamConnection($host, $port, $user, $password);
-        $this->exchange = $exchange;
     }
 
     public function publish(DomainEvent ...$events): void
@@ -33,7 +31,7 @@ class RabbitMqEventBus implements EventBus
 
         foreach ($events as $event) {
             $message = new AMQPMessage(
-                json_encode($event->toPrimitives()),
+                json_encode($event->toPrimitives(), JSON_THROW_ON_ERROR),
                 [
                     'message_id' => $event->eventId(),
                     'timestamp' => $event->occurredOn()->setTimezone(new \DateTimeZone("UTC"))->getTimestamp(),

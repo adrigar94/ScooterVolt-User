@@ -10,8 +10,8 @@ use DateTimeImmutable;
 abstract class DomainEvent
 {
     public function __construct(
-        private string $aggregateId,
-        private array $body,
+        private readonly string $aggregateId,
+        private readonly array $body,
         private ?string $eventId = null,
         private ?DateTimeImmutable $occurredOn = null
     ) {

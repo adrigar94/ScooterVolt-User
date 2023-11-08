@@ -12,8 +12,8 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserFindAllService
 {
     public function __construct(
-        private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice
+        private readonly UserRepository $repository,
+        private readonly AuthorizationUser $authorizationSerivice
     ) {
     }
 

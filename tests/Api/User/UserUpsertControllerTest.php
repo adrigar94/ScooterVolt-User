@@ -69,7 +69,7 @@ class UserUpsertControllerTest extends KernelTestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
 
-        $responseData = json_decode($response->getContent(), true);
+        $responseData = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $this->assertArrayHasKey('id', $responseData);
         $this->assertArrayHasKey('fullname', $responseData);
         $this->assertArrayHasKey('email', $responseData);

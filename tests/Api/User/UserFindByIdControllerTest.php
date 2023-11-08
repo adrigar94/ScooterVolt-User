@@ -52,7 +52,7 @@ class UserFindByIdControllerTest extends KernelTestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
 
-        $responseData = json_decode($response->getContent(), true);
+        $responseData = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertSame($userId->toNative(), $responseData['id']);
         $this->assertSame($email->toNative(), $responseData['email']);

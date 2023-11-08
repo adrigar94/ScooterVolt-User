@@ -37,7 +37,7 @@ class EventDomainUserReadCommand extends Command
         });
 
         $i = 0;
-        while ($i < $MAX_READS and $channel->is_open()) {
+        while ($i < $MAX_READS && $channel->is_open()) {
             $channel->wait();
             $i++;
         }

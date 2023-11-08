@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 )]
 class UserFindAllController
 {
-    public function __construct(private UserFindAllService $finder)
+    public function __construct(private readonly UserFindAllService $finder)
     {
     }
 

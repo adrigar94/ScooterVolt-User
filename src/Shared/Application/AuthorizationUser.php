@@ -12,8 +12,8 @@ class AuthorizationUser
 {
 
     public function __construct(
-        private TokenStorageInterface $tokenStorageInterface,
-        private JWTTokenManagerInterface $jwtManager
+        private readonly TokenStorageInterface $tokenStorageInterface,
+        private readonly JWTTokenManagerInterface $jwtManager
     ) {
     }
 
@@ -66,6 +66,6 @@ class AuthorizationUser
         {
             return null;
         }
-        return $this->loggedIs($identifier) and $this->loggedHasRole($role);
+        return $this->loggedIs($identifier) && $this->loggedHasRole($role);
     }
 }

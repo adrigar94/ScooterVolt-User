@@ -14,16 +14,16 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserDeleteService
 {
     public function __construct(
-        private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice,
-        private EventBus $eventBus
+        private readonly UserRepository $repository,
+        private readonly AuthorizationUser $authorizationSerivice,
+        private readonly EventBus $eventBus
     ) {
     }
 
     public function __invoke(UserId $userId): void
     {
         $user = $this->repository->findById($userId);
-        if ($user) {
+        if ($user instanceof \ScooterVolt\UserService\User\Domain\User) {
             $this->hasPermission($user->getEmail()->value());
         }
         $this->repository->delete($userId);
@@ -39,7 +39,7 @@ class UserDeleteService
     private function hasPermission(string $email): void
     {
         if (
-            !$this->authorizationSerivice->loggedIs($email) and !$this->authorizationSerivice->isAdmin()
+            !$this->authorizationSerivice->loggedIs($email) && !$this->authorizationSerivice->isAdmin()
         ) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission to delete this user');
         }

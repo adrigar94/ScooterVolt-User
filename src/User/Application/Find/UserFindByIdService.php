@@ -13,15 +13,15 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserFindByIdService
 {
     public function __construct(
-        private UserRepository $repository,
-        private AuthorizationUser $authorizationSerivice
+        private readonly UserRepository $repository,
+        private readonly AuthorizationUser $authorizationSerivice
     ) {
     }
 
     public function __invoke(UserId $id): ?User
     {
         $user = $this->repository->findById($id);
-        if($user){
+        if($user instanceof \ScooterVolt\UserService\User\Domain\User){
             $this->hasPermission($user->getEmail()->value());
         }
         return $user;
@@ -30,7 +30,7 @@ class UserFindByIdService
     private function hasPermission(string $email): void
     {
         if (
-            !$this->authorizationSerivice->loggedIs($email) and !$this->authorizationSerivice->isAdmin()
+            !$this->authorizationSerivice->loggedIs($email) && !$this->authorizationSerivice->isAdmin()
         ) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission to get this user');
         }

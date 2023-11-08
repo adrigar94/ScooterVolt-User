@@ -21,13 +21,13 @@ class KernelException
         $exception = $event->getThrowable();
         
         $data = [
-            'class' => \get_class($exception),
+            'class' => $exception::class,
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
             'traces' => $exception->getTrace()
         ];
 
-        if($data['code'] === 0 AND $exception instanceof HttpExceptionInterface){
+        if($data['code'] === 0 && $exception instanceof HttpExceptionInterface){
             $data['code'] = $exception->getStatusCode();
         }elseif($data['code'] < 100){
             $data['code'] = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
