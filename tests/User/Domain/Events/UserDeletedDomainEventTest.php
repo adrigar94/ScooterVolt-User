@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ScooterVolt\UserService\Tests\User\Domain\Events;
 
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use ScooterVolt\UserService\User\Domain\Events\UserDeletedDomainEvent;
 
@@ -32,7 +31,7 @@ class UserDeletedDomainEventTest extends TestCase
         $userId = '1234';
         $email = 'john.doe@example.com';
         $eventId = '5678';
-        $occurredOn = new DateTimeImmutable();
+        $occurredOn = new \DateTimeImmutable();
 
         $event = UserDeletedDomainEvent::fromPrimitives(
             $userId,
@@ -62,7 +61,7 @@ class UserDeletedDomainEventTest extends TestCase
         $userId = '1234';
         $email = 'john.doe@example.com';
         $eventId = '5678';
-        $occurredOn = new DateTimeImmutable();
+        $occurredOn = new \DateTimeImmutable();
 
         $event = new UserDeletedDomainEvent($userId, $email, $eventId, $occurredOn);
 

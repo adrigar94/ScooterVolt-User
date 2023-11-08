@@ -47,7 +47,6 @@ class UserFindAllServiceTest extends KernelTestCase
             ->method('findAll')
             ->willReturn($expectedUsers);
 
-
         $this->authorizationSerivice->expects($this->once())
             ->method('isAdmin')
             ->willReturn(true);

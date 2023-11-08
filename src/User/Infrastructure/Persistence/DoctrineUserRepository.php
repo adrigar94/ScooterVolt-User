@@ -6,7 +6,6 @@ namespace ScooterVolt\UserService\User\Infrastructure\Persistence;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Exception;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\UserNotFoundException;
 use ScooterVolt\UserService\User\Domain\UniqueEmailViolationException;
 use ScooterVolt\UserService\User\Domain\User;
@@ -23,8 +22,9 @@ final class DoctrineUserRepository implements UserRepository
 {
     private const TABLE_NAME = 'users';
 
-    public function __construct(private readonly Connection $connection)
-    {
+    public function __construct(
+        private readonly Connection $connection
+    ) {
     }
 
     public function findAll(): array
@@ -59,7 +59,6 @@ final class DoctrineUserRepository implements UserRepository
 
         return $row ? $this->mapRowToUser($row) : null;
     }
-
 
     public function findByEmail(UserEmail $email): ?User
     {
@@ -107,7 +106,9 @@ final class DoctrineUserRepository implements UserRepository
                 $this->connection->update(
                     self::TABLE_NAME,
                     $data,
-                    ['id' => $user->getId()->toNative()]
+                    [
+                        'id' => $user->getId()->toNative(),
+                    ]
                 );
             } else {
                 $this->connection->insert(self::TABLE_NAME, $data);
@@ -122,7 +123,9 @@ final class DoctrineUserRepository implements UserRepository
 
     public function delete(UserId $id): void
     {
-        $this->connection->delete(self::TABLE_NAME, ['id' => $id->toNative()]);
+        $this->connection->delete(self::TABLE_NAME, [
+            'id' => $id->toNative(),
+        ]);
     }
 
     /**
@@ -133,33 +136,31 @@ final class DoctrineUserRepository implements UserRepository
      * object can just be merged into some internal array of users / identity
      * map.
      *
-     *
      * @throws UnsupportedUserException if the user is not supported
      * @throws UserNotFoundException    if the user is not found
      */
     public function refreshUser(UserInterface $user): UserInterface
     {
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
-    
+
         $refreshedUser = $this->findById($user->getId());
-    
-        if (!$refreshedUser instanceof \ScooterVolt\UserService\User\Domain\User) {
-            throw new UserNotFoundException("id", $user->getId()->value());
+
+        if (! $refreshedUser instanceof \ScooterVolt\UserService\User\Domain\User) {
+            throw new UserNotFoundException('id', $user->getId()->value());
         }
-    
+
         return $refreshedUser;
     }
 
     /**
      * Whether this provider supports the given user class.
      */
-    function supportsClass(string $class):bool
+    public function supportsClass(string $class): bool
     {
-        return $class === User::class;
+        return User::class === $class;
     }
-
 
     /**
      * Loads the user for the given user identifier (e.g. username or email).
@@ -172,11 +173,11 @@ final class DoctrineUserRepository implements UserRepository
     {
         $email = UserEmail::fromNative($identifier);
         $user = $this->findByEmail($email);
-    
-        if (!$user instanceof \ScooterVolt\UserService\User\Domain\User) {
-            throw new UserNotFoundException("email", $identifier);
+
+        if (! $user instanceof \ScooterVolt\UserService\User\Domain\User) {
+            throw new UserNotFoundException('email', $identifier);
         }
-    
+
         return $user;
     }
 }

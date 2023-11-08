@@ -8,7 +8,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
 use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
 use ScooterVolt\UserService\User\Application\Delete\UserDeleteService;
-use ScooterVolt\UserService\User\Domain\Events\UserDeletedDomainEvent;
 use ScooterVolt\UserService\User\Domain\User;
 use ScooterVolt\UserService\User\Domain\UserEmail;
 use ScooterVolt\UserService\User\Domain\UserFullname;
@@ -38,7 +37,6 @@ class UserDeleteServiceTest extends KernelTestCase
 
     public function testInvoke(): void
     {
-
         $userId = UserId::random();
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john.doe@example.com');
@@ -67,9 +65,9 @@ class UserDeleteServiceTest extends KernelTestCase
 
         $service->__invoke($userId);
     }
+
     public function testInvokeAuthDenied(): void
     {
-
         $userId = UserId::random();
         $fullname = UserFullname::create('John', 'Doe');
         $email = new UserEmail('john.doe@example.com');
@@ -87,10 +85,8 @@ class UserDeleteServiceTest extends KernelTestCase
             ->method('loggedIs')
             ->willReturn(false);
 
-
         $this->repository->expects($this->never())
             ->method('delete');
-
 
         $this->eventBus->expects($this->never())
             ->method('publish');

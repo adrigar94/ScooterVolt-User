@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\ScooterVolt\UserService\User\Application\Upsert;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Log\LoggerInterface;
 use ScooterVolt\UserService\Shared\Application\AuthorizationUser;
 use ScooterVolt\UserService\Shared\Domain\Bus\Event\EventBus;
 use ScooterVolt\UserService\User\Application\Upsert\UserUpsertService;
@@ -56,14 +55,12 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(fn(User $user) => $user->equals($expectedUser))
+                    $this->callback(fn (User $user) => $user->equals($expectedUser))
                 )
             );
 
-
         $this->eventBus->expects($this->once())
             ->method('publish');
-
 
         $service = new UserUpsertService($this->repository, $this->authorizationSerivice, $this->eventBus);
 
@@ -75,7 +72,6 @@ class UserUpsertServiceTest extends KernelTestCase
         $this->assertEquals($expectedUser->getEmail(), $result->getEmail());
         $this->assertEquals($expectedUser->getPasswordVO(), $result->getPasswordVO());
     }
-
 
     public function testInvokeEdit(): void
     {
@@ -97,14 +93,13 @@ class UserUpsertServiceTest extends KernelTestCase
             ->with(
                 $this->logicalAnd(
                     $this->isInstanceOf(User::class),
-                    $this->callback(fn(User $user) => $user->equals($expectedUser))
+                    $this->callback(fn (User $user) => $user->equals($expectedUser))
                 )
             );
 
         $this->authorizationSerivice->expects($this->once())
             ->method('loggedIs')
             ->willReturn(true);
-
 
         $this->eventBus->expects($this->once())
             ->method('publish');
@@ -119,7 +114,6 @@ class UserUpsertServiceTest extends KernelTestCase
         $this->assertEquals($expectedUser->getEmail(), $result->getEmail());
         $this->assertEquals($expectedUser->getPasswordVO(), $result->getPasswordVO());
     }
-
 
     public function testInvokeEditAuthDenied(): void
     {
@@ -151,7 +145,6 @@ class UserUpsertServiceTest extends KernelTestCase
             ->method('publish');
 
         $service = new UserUpsertService($this->repository, $this->authorizationSerivice, $this->eventBus);
-
 
         $this->expectException(UnauthorizedHttpException::class);
 

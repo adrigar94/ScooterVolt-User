@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserUpsertControllerTest extends KernelTestCase
 {
-
     private UserUpsertController $controller;
     private UserUpsertService|MockObject $upsertService;
 
@@ -37,10 +36,10 @@ class UserUpsertControllerTest extends KernelTestCase
     public function testInvoke(): void
     {
         $userId = UserId::random();
-        $name = "Test";
-        $surname = "Controller";
-        $email = "test@controller.com";
-        $passwd = "P@55word";
+        $name = 'Test';
+        $surname = 'Controller';
+        $email = 'test@controller.com';
+        $passwd = 'P@55word';
         $roles = ['ROLE_USER'];
 
         $user = new User(
@@ -49,8 +48,8 @@ class UserUpsertControllerTest extends KernelTestCase
             new UserEmail($email),
             new UserPassword($passwd),
             UserRoles::fromNative($roles),
-            new \DateTime,
-            new \DateTime
+            new \DateTime(),
+            new \DateTime()
         );
 
         $this->upsertService->expects($this->once())
@@ -61,7 +60,7 @@ class UserUpsertControllerTest extends KernelTestCase
             'name' => $name,
             'surname' => $surname,
             'email' => $email,
-            'password' => $passwd
+            'password' => $passwd,
         ]));
 
         $response = $this->controller->__invoke($request, $userId->toNative());
@@ -78,5 +77,4 @@ class UserUpsertControllerTest extends KernelTestCase
 
         $this->assertSame($userId->toNative(), $responseData['id']);
     }
-
 }

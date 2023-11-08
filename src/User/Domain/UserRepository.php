@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace ScooterVolt\UserService\User\Domain;
+
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 interface UserRepository extends UserProviderInterface

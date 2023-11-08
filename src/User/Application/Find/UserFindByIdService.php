@@ -21,16 +21,17 @@ class UserFindByIdService
     public function __invoke(UserId $id): ?User
     {
         $user = $this->repository->findById($id);
-        if($user instanceof \ScooterVolt\UserService\User\Domain\User){
+        if ($user instanceof \ScooterVolt\UserService\User\Domain\User) {
             $this->hasPermission($user->getEmail()->value());
         }
+
         return $user;
     }
 
     private function hasPermission(string $email): void
     {
         if (
-            !$this->authorizationSerivice->loggedIs($email) && !$this->authorizationSerivice->isAdmin()
+            ! $this->authorizationSerivice->loggedIs($email) && ! $this->authorizationSerivice->isAdmin()
         ) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission to get this user');
         }

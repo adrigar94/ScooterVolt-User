@@ -24,7 +24,7 @@ class EventDomainUserReadCommand extends Command
         $MAX_READS = 10;
         $io = new SymfonyStyle($input, $output);
 
-        $connection = new AMQPStreamConnection("127.0.0.1", 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection('127.0.0.1', 5672, 'guest', 'guest');
         $channel = $connection->channel();
 
         $channel->exchange_declare('UserService', 'topic', false, true, false);
@@ -39,11 +39,10 @@ class EventDomainUserReadCommand extends Command
         $i = 0;
         while ($i < $MAX_READS && $channel->is_open()) {
             $channel->wait();
-            $i++;
+            ++$i;
         }
         $channel->close();
         $connection->close();
-
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 

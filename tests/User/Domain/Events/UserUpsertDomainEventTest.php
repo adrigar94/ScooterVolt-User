@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ScooterVolt\UserService\Tests\User\Domain\Events;
 
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use ScooterVolt\UserService\User\Domain\Events\UserUpsertDomainEvent;
 
@@ -41,7 +40,7 @@ class UserUpsertDomainEventTest extends TestCase
         $email = 'john.doe@example.com';
         $roles = ['ROLE_USER'];
         $eventId = '5678';
-        $occurredOn = new DateTimeImmutable();
+        $occurredOn = new \DateTimeImmutable();
 
         $event = UserUpsertDomainEvent::fromPrimitives(
             $userId,
@@ -80,7 +79,7 @@ class UserUpsertDomainEventTest extends TestCase
         $email = 'john.doe@example.com';
         $roles = ['ROLE_USER'];
         $eventId = '5678';
-        $occurredOn = new DateTimeImmutable();
+        $occurredOn = new \DateTimeImmutable();
 
         $event = new UserUpsertDomainEvent($userId, $name, $surname, $email, $roles, $eventId, $occurredOn);
 
@@ -92,7 +91,7 @@ class UserUpsertDomainEventTest extends TestCase
                     'name' => $name,
                     'surname' => $surname,
                     'email' => $email,
-                    'roles' => $roles
+                    'roles' => $roles,
                 ],
                 'eventId' => $eventId,
                 'occurredOn' => $occurredOn,

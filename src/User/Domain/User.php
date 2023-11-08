@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ScooterVolt\UserService\User\Domain;
 
-use DateTime;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,8 +15,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         private UserEmail $email,
         private UserPassword $password,
         private UserRoles $roles,
-        private DateTime $created_at,
-        private DateTime $updated_at
+        private \DateTime $created_at,
+        private \DateTime $updated_at
     ) {
     }
 
@@ -60,7 +59,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
-    public function getPassword(): String
+
+    public function getPassword(): string
     {
         return $this->password->value();
     }
@@ -70,47 +70,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
     }
 
-    function getRoles(): array
+    public function getRoles(): array
     {
         return $this->roles->toNative();
     }
 
-    function getRolesVO(): UserRoles
+    public function getRolesVO(): UserRoles
     {
         return $this->roles;
     }
 
-    function setRolesVO(UserRoles $roles): void
+    public function setRolesVO(UserRoles $roles): void
     {
         $this->roles = $roles;
     }
 
-    function eraseCredentials(): void
+    public function eraseCredentials(): void
     {
-        //not necessary
+        // not necessary
     }
 
-    function getUserIdentifier(): string
+    public function getUserIdentifier(): string
     {
         return $this->getEmail()->value();
     }
 
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): \DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(DateTime $created_at): void
+    public function setCreatedAt(\DateTime $created_at): void
     {
         $this->created_at = $created_at;
     }
 
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(DateTime $updated_at): void
+    public function setUpdatedAt(\DateTime $updated_at): void
     {
         $this->updated_at = $updated_at;
     }

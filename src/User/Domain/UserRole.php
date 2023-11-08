@@ -15,7 +15,7 @@ class UserRole extends EnumValueObject
     {
         return [
             self::USER => 'User',
-            self::ADMIN => 'Admin'
+            self::ADMIN => 'Admin',
         ];
     }
 }

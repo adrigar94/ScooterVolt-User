@@ -80,15 +80,13 @@ class UserFindByIdServiceTest extends KernelTestCase
         $this->authorizationSerivice->expects($this->once())
             ->method('loggedIs')
             ->willReturn(false);
-        
+
         $this->authorizationSerivice->expects($this->once())
             ->method('isAdmin')
             ->willReturn(false);
-        
 
         $this->expectException(UnauthorizedHttpException::class);
 
         ($this->service)($userId);
     }
-
 }

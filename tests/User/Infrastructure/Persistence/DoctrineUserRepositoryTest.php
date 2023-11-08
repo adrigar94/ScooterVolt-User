@@ -13,8 +13,8 @@ use ScooterVolt\UserService\User\Domain\UserId;
 use ScooterVolt\UserService\User\Domain\UserPassword;
 use ScooterVolt\UserService\User\Domain\UserRoles;
 use ScooterVolt\UserService\User\Infrastructure\Persistence\DoctrineUserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -53,13 +53,12 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->assertEquals($userId, $foundUser->getId());
     }
 
-
     public function testFindByEmail(): void
     {
         $userEmail = new UserEmail('john.doe@example.com');
 
         $foundUser = $this->repository->findByEmail($userEmail);
-        
+
         $this->assertInstanceOf(User::class, $foundUser);
         $this->assertEquals($userEmail, $foundUser->getEmail());
     }
@@ -99,7 +98,6 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->repository->save($user2);
     }
 
-
     public function testDelete(): void
     {
         $userId = new UserId('51210494-e320-45da-894f-1a9587a23a1f');
@@ -122,7 +120,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $input = new ArrayInput([
             'command' => 'doctrine:database:drop',
             '--force' => true,
-            '--if-exists' => true
+            '--if-exists' => true,
         ]);
         $output = new BufferedOutput();
         $application->run($input, $output);

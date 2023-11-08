@@ -11,6 +11,6 @@ class UserFullname extends FullnameValueObject
 {
     public static function create(string $name, string $surname): self
     {
-        return new Self(new NameValueObject($name), new NameValueObject($surname));
+        return new self(new NameValueObject($name), new NameValueObject($surname));
     }
 }

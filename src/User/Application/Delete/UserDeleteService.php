@@ -39,7 +39,7 @@ class UserDeleteService
     private function hasPermission(string $email): void
     {
         if (
-            !$this->authorizationSerivice->loggedIs($email) && !$this->authorizationSerivice->isAdmin()
+            ! $this->authorizationSerivice->loggedIs($email) && ! $this->authorizationSerivice->isAdmin()
         ) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission to delete this user');
         }

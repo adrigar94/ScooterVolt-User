@@ -23,13 +23,13 @@ class UserFindAllService
     public function __invoke(): array
     {
         $this->hasPermission();
+
         return $this->repository->findAll();
     }
 
-
     private function hasPermission(): void
     {
-        if (!$this->authorizationSerivice->isAdmin()) {
+        if (! $this->authorizationSerivice->isAdmin()) {
             throw new UnauthorizedHttpException('Bearer', 'You do not have permission');
         }
     }

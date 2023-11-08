@@ -17,12 +17,12 @@ class UserTest extends KernelTestCase
 {
     public function testCreateUserInstance()
     {
-        //self::bootKernel();
+        // self::bootKernel();
 
         $userId = UserId::random();
         $userName = new NameValueObject('John');
         $surname = new NameValueObject('Doe');
-        $fullname = new UserFullname($userName,$surname);
+        $fullname = new UserFullname($userName, $surname);
         $userEmail = new UserEmail('john.doe@example.com');
         $password = new UserPassword('Password123!');
         $roles = UserRoles::fromNative(['ROLE_USER']);
@@ -36,14 +36,14 @@ class UserTest extends KernelTestCase
 
     public function testVerifyUserPassword()
     {
-        //self::bootKernel();
+        // self::bootKernel();
 
         $passwordString = 'Password123!';
 
         $userId = UserId::random();
         $userName = new NameValueObject('John');
         $surname = new NameValueObject('Doe');
-        $fullname = new UserFullname($userName,$surname);
+        $fullname = new UserFullname($userName, $surname);
         $userEmail = new UserEmail('john.doe@example.com');
         $password = new UserPassword($passwordString);
         $roles = UserRoles::fromNative(['ROLE_USER']);
