@@ -18,12 +18,12 @@ use ScooterVolt\UserService\User\Domain\UserRoles;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class DoctrineUserRepository implements UserRepository
+final readonly class DoctrineUserRepository implements UserRepository
 {
     private const TABLE_NAME = 'users';
 
     public function __construct(
-        private readonly Connection $connection
+        private Connection $connection
     ) {
     }
 

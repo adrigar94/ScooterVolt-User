@@ -124,7 +124,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         ]);
         $output = new BufferedOutput();
         $application->run($input, $output);
-        $content = $output->fetch();
+        $output->fetch();
 
         $input = new ArrayInput([
             'command' => 'doctrine:database:create',
