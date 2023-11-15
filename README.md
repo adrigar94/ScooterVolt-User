@@ -25,3 +25,8 @@ To run integration tests:
 
 ## TODO
 - [ ] Create object mother for tests
+
+
+## Code quality
+- vendor/bin/rector process --ansi --dry-run
+- vendor/bin/ecs check
