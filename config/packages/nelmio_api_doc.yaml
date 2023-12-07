@@ -28,8 +28,9 @@ nelmio_api_doc:
                                 schema:
                                     type: object
                                     properties:
-                                        username:
+                                        email:
                                             type: string
+                                            example: 'john.doe@example.com'
                                         password:
                                             type: string
                     responses:
